@@ -1,4 +1,4 @@
-![客户端接口设计规范.png](http://upload-images.jianshu.io/upload_images/2157048-7e79d5bd82ae0b40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![客户端接口设计规范.png](https://github.com/listen2code/article/blob/master/从客户端的角度设计后端的接口/screenshot/客户端接口设计规范.png?raw=true)
 
 ####前言
 > 兵马未动，粮草先行。在一款APP产品的各个版本迭代中，兵马的启动指的是真正开始敲代码的时候，粮草先行则是指前期的需求，交互，UI等评审准备阶段，还有本文要说的接口的设计与评审。虽然很多时候一个api接口的业务，数据逻辑是后端提供的，但真正使用这个接口的是客户端，一个前端功能的实现流程与逻辑，有时候只有客户端的RD才清楚，从某种意义来说，客户端算是接口的需求方。所以建议在前期接口设计和评审时，客户端的RD应该更多的思考和参与，什么时机调什么接口？每个接口需要哪些字段？数据含义怎么给？只有这些都考虑清楚，且达成一致并产出接口文档后，当项目真正启动时，根据接口协议进行开发，才能尽量避免各种不确定因素对项目整体进度的影响。本文介绍了接口设计中常见的规范，以及个人的一些思考与总结，水平有限，权当是抛砖引玉，如果有更好的设计，请在文章下方留言告诉我，谢谢。
@@ -416,7 +416,7 @@ data.getUser().getUserId()的写法，就会很奇怪。
     
 2. 数据列表化：尽量用List(key, value)的数据格式定义类似列表的界面
         
- ![list.png](http://upload-images.jianshu.io/upload_images/2157048-b3c40265c3b04864.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+ ![list.png](https://github.com/listen2code/article/blob/master/从客户端的角度设计后端的接口/screenshot/list.png?raw=true)
     
 方案1：客户端在写xml的时候将左侧的"姓名"，"性别"，"年龄"写死，右侧的具体数据从json解析获得
     
@@ -540,39 +540,39 @@ isShowBalance=true
          ```
          // 字符串转字符
          char* _JString2CStr(JNIEnv* env, jstring jstr) {
-        	char* rtn;
-        	jclass clsstring = (*env)->FindClass(env, "java/lang/String");
-        	jstring strencode = (*env)->NewStringUTF(env, "GB2312");
-        	jmethodID mid = (*env)->GetMethodID(env, clsstring, "getBytes",
-        			"(Ljava/lang/String;)[B");
-        	jbyteArray barr = (jbyteArray)(*env)->CallObjectMethod(env, jstr, mid,
-        			strencode); // String .getByte("GB2312");
-        	jsize alen = (*env)->GetArrayLength(env, barr);
-        	jbyte* ba = (*env)->GetByteArrayElements(env, barr, JNI_FALSE);
-        	if (alen > 0) {
-        		rtn = (char*) malloc(alen + 1); //"\0"
-        		memcpy(rtn, ba, alen);
-        		rtn[alen] = 0;
-        	}
-        	(*env)->ReleaseByteArrayElements(env, barr, ba, 0);
-        	return rtn;
+            char* rtn;
+            jclass clsstring = (*env)->FindClass(env, "java/lang/String");
+            jstring strencode = (*env)->NewStringUTF(env, "GB2312");
+            jmethodID mid = (*env)->GetMethodID(env, clsstring, "getBytes",
+                    "(Ljava/lang/String;)[B");
+            jbyteArray barr = (jbyteArray)(*env)->CallObjectMethod(env, jstr, mid,
+                    strencode); // String .getByte("GB2312");
+            jsize alen = (*env)->GetArrayLength(env, barr);
+            jbyte* ba = (*env)->GetByteArrayElements(env, barr, JNI_FALSE);
+            if (alen > 0) {
+                rtn = (char*) malloc(alen + 1); //"\0"
+                memcpy(rtn, ba, alen);
+                rtn[alen] = 0;
+            }
+            (*env)->ReleaseByteArrayElements(env, barr, ba, 0);
+            return rtn;
         }
     
          char* storeKeyHash = "1234567890";// 该值可以通过java层的getSignature获取
          
          JNIEXPORT jstring JNICALL Java_com_listen_test_NativeHelper_getKey(
-        		JNIEnv *env, jobject obj, jbyteArray array) {
-        	// 反射获取当前keyStore的hash值
-        	jclass jClazz = (*env)->FindClass(env, "com/listen/test/NativeHelper");
-        	jmethodID jmethodid = (*env)->GetMethodID(env, jClazz, "getSignature",
-        			"()Ljava/lang/String;");
-        	jstring appSign = (jstring)(*env)->CallObjectMethod(env, obj, jmethodid);
+                JNIEnv *env, jobject obj, jbyteArray array) {
+            // 反射获取当前keyStore的hash值
+            jclass jClazz = (*env)->FindClass(env, "com/listen/test/NativeHelper");
+            jmethodID jmethodid = (*env)->GetMethodID(env, jClazz, "getSignature",
+                    "()Ljava/lang/String;");
+            jstring appSign = (jstring)(*env)->CallObjectMethod(env, obj, jmethodid);
         
-        	// 判断是否是本程序的签名哈希值
-        	char* charAppSign = _JString2CStr(env, appSign); //将jstring转换为cha*
-        	if (strcmp(charAppSign, storeKeyHash) != 0) {
-        		return (*env)->NewStringUTF(env, "");//keyStore的hash不一致，不是在当前app种调用该so
-        	}
+            // 判断是否是本程序的签名哈希值
+            char* charAppSign = _JString2CStr(env, appSign); //将jstring转换为cha*
+            if (strcmp(charAppSign, storeKeyHash) != 0) {
+                return (*env)->NewStringUTF(env, "");//keyStore的hash不一致，不是在当前app种调用该so
+            }
             return (*env)->NewStringUTF(env, "秘钥值");//keyStore的hash一致，返回密钥
         }
          ```
@@ -606,7 +606,7 @@ isShowBalance=true
 3. md5缓存
 >对于频繁调用，且数据不常变化的接口（config配置接口），可以在返回的数据中添加md5字段（用于校验除md5外其他数据是否变化），在下次请求的时候将这个md5作为参数传给后端，md5没有变化的情况下，不返回data，客户端可以直接使用上次请求缓存在本地的data。
     
-     ![md5.png](http://upload-images.jianshu.io/upload_images/2157048-788ae2eedf1cac6f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+     ![md5.png](https://github.com/listen2code/article/blob/master/从客户端的角度设计后端的接口/screenshot/md5.png?raw=true)
     
 4. 无用字段清理
     >每个版本的接口更新后，需要将无用字段进行清理。或者同个接口不同状态下需要返回的字段各不相同的时候，当次请求不需要的字段需要提醒后端不必下发，避免传输无用数据浪费用户流量。
