@@ -6,7 +6,7 @@
 > 6.0以前的安装时权限，会在应用安装时列出所有需要的权限，当列出一些危险权限时，用户不知每个权限的具体用途，可能因为这些权限警告而放弃安装应用。对于一些非装不可的应用，用户则不得不被迫接受所有权限，很容易安装了一些流氓APP，体验不佳。
 > 6.0以后的运行时权限，可以在调用相关功能之前判断权限授权状态，并自定义提示弹框告知用户权限用途，使用户清楚了解之后，再授权使用。
 
-![5.0和6.0的安装页面.png](https://raw.githubusercontent.com/listen2code/article/master/运行时权限/screenshot/5.0和6.0的安装页面.png)
+![5.0和6.0的安装页面.png](https://github.com/listen2code/article/blob/master/运行时权限/screenshot/5.0和6.0的安装页面.png?raw=true)
 
 * 更稳定
 
