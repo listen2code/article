@@ -1,4 +1,4 @@
-![运行时权限.png](https://github.com/listen2code/article/blob/master/运行时权限/screenshot/运行时权限.jpg?raw=true)
+![运行时权限.png](https://github.com/listen2code/article/blob/master/6.0运行时权限的总结与实践/screenshot/运行时权限.jpg?raw=true)
 
 ####为什么需要6.0运行时权限
 * 更友好
@@ -6,13 +6,13 @@
 > 6.0以前的安装时权限，会在应用安装时列出所有需要的权限，当列出一些危险权限时，用户不知每个权限的具体用途，可能因为这些权限警告而放弃安装应用。对于一些非装不可的应用，用户则不得不被迫接受所有权限，很容易安装了一些流氓APP，体验不佳。
 > 6.0以后的运行时权限，可以在调用相关功能之前判断权限授权状态，并自定义提示弹框告知用户权限用途，使用户清楚了解之后，再授权使用。
 
-![5.0和6.0的安装页面.png](https://github.com/listen2code/article/blob/master/运行时权限/screenshot/5.0和6.0的安装页面.png?raw=true)
+![5.0和6.0的安装页面.png](https://github.com/listen2code/article/blob/master/6.0运行时权限的总结与实践/screenshot/5.0和6.0的安装页面.png?raw=true)
 
 * 更稳定
 
 > 6.0系统的手机对于每个应用，都有个权限设置页面，可以手动开关权限，如果用户在设置页面误关了某个权限，若没在程序运行时做判断，则会导致相关功能的调用失败，引起崩溃等。
 
-![5.0和6.0的权限设置页面.png](https://github.com/listen2code/article/blob/master/运行时权限/screenshot/5.0和6.0的权限设置页面.png?raw=true)
+![5.0和6.0的权限设置页面.png](https://github.com/listen2code/article/blob/master/6.0运行时权限的总结与实践/screenshot/5.0和6.0的权限设置页面.png?raw=true)
 
 ####如何实现运行时权限
 
@@ -63,7 +63,7 @@ public void onRequestPermissionsResult(int requestCode, @NonNull String[] permis
 
 * 主要实现逻辑参考[PermissionGen](https://github.com/lovedise/PermissionGen)，封装了权限判断，请求，结果处理等通用逻辑，目前只支持context=AppCompatActivity，如果在Fragment中使用时可以调用getActivity()获取上层AppCompatActivity。
 
-![demo演示.gif](https://github.com/listen2code/article/blob/master/运行时权限/screenshot/运行时权限.gif?raw=true)
+![demo演示.gif](https://github.com/listen2code/article/blob/master/6.0运行时权限的总结与实践/gif/运行时权限.gif?raw=true)
 
 ```
 private void normal() {
@@ -168,7 +168,7 @@ public static void onRequestPermissionsResult(Context context, int requestCode, 
 }
 ```
 
-代码地址：[LsPermission](https://github.com/listen2code/Test_Mogu_View)
+代码地址：[LsPermission](https://github.com/listen2code/LsPermission)
 
 除了基本的权限申请逻辑的封装以外，还写了类似微信，支付宝，百度地图等在启动页的权限申请Demo，算是PermissionUtil的简单运用。
 
