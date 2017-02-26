@@ -12,7 +12,7 @@
 3.底部tips：已缴纳，免押金状态展示不同文案；已缴纳状态，不展示；
 4.按钮：未缴纳，已缴纳状态，文案，及点击事件都不相同；
 
-![我的押金页面.png](http://upload-images.jianshu.io/upload_images/2157048-73973e274b68ed22.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![我的押金页面.png](https://github.com/listen2code/article/blob/master/MVC，MVP，MVPVM（一）实践之路/screenshot/我的押金页面.png?raw=true)
 
 #####MVC的实现方式
 activity_main.xml
@@ -303,17 +303,17 @@ mTvMoney.setTextColor(getResources().getColor(android.R.color.holo_red_light));
 }
 ```
 效果图
-![免押金.png](http://upload-images.jianshu.io/upload_images/2157048-76841eba5136dbc0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![未缴纳.png](http://upload-images.jianshu.io/upload_images/2157048-580d8bbed16d8384.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![已缴纳.png](http://upload-images.jianshu.io/upload_images/2157048-458787755bcf9257.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![免押金.png](https://github.com/listen2code/article/blob/master/MVC，MVP，MVPVM（一）实践之路/screenshot/免押金.png?raw=true)
+![未缴纳.png](https://github.com/listen2code/article/blob/master/MVC，MVP，MVPVM（一）实践之路/screenshot/未缴纳.png?raw=true)
+![已缴纳.png](https://github.com/listen2code/article/blob/master/MVC，MVP，MVPVM（一）实践之路/screenshot/已缴纳.png?raw=true)
 
 项目结构：
 model：MydepositModel作为数据的载体，Repository负责从网络获取数据，两者共同承担着model的职责；
 view：activity_main.xml负责view的展示形式；
 control：MainActivity负责接收view的交互请求，提交给model；当model发生变化时操作view，更新展示逻辑。
 
-![mvc1.png](http://upload-images.jianshu.io/upload_images/2157048-c006a3de6c35fa7d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![mvc2.png](http://upload-images.jianshu.io/upload_images/2157048-2429be5ab0682d99.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![mvc1.png](https://github.com/listen2code/article/blob/master/MVC，MVP，MVPVM（一）实践之路/screenshot/mvc.png?raw=true)
+![mvc2.png](https://github.com/listen2code/article/blob/master/MVC，MVP，MVPVM（一）实践之路/screenshot/mvc2.png?raw=true)
 
 Activity：view的容器，控制生命周期，页面交互与事件处理
 xml：view展示与布局
@@ -596,9 +596,9 @@ public class MainActivity extends AppCompatActivity implements IMainView {
     }
 }
 ```
-![mvp项目结构.png](http://upload-images.jianshu.io/upload_images/2157048-fa7b9941b45e35ec.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![mvp项目结构.png](https://github.com/listen2code/article/blob/master/MVC，MVP，MVPVM（一）实践之路/screenshot/mvp.png?raw=true)
 
-![mvp2.png](http://upload-images.jianshu.io/upload_images/2157048-208c7539307eef2c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![mvp2.png](https://github.com/listen2code/article/blob/master/MVC，MVP，MVPVM（一）实践之路/screenshot/mvp2.png?raw=true)
 
 ######总结
 presenter处理业务逻辑并更新view，Activity只提供基础的操作view的能力，2者互相独立，view与业务分离。
@@ -1204,8 +1204,8 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 ```
 
 
-![mvpvm.png](http://upload-images.jianshu.io/upload_images/2157048-9f76f2696e03adf4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![mvpvm2.png](http://upload-images.jianshu.io/upload_images/2157048-119d62e1d7e42238.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![mvpvm.png](https://github.com/listen2code/article/blob/master/MVC，MVP，MVPVM（一）实践之路/screenshot/mvpvm.png?raw=true)
+![mvpvm2.png](https://github.com/listen2code/article/blob/master/MVC，MVP，MVPVM（一）实践之路/screenshot/mvpvm2.png?raw=true)
 如图：用户操作view，触发事件响应，通过presenter中转，传递给model进行数据处理，获取新数据后处理业务逻辑，并适配成不同状态的viewModel展示策略，view根据不同的viewModel进行更新。
 
 总结：
