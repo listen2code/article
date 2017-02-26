@@ -1213,4 +1213,3 @@ public class MainActivity extends AppCompatActivity implements IMainView {
 本文并非按照传统的MVC，MVP，MVVM的路线实现架构，而是采用循序渐进的方式，在MVC中发现Activity过重，所以引入MVP，Presenter作为View和Model的中转，达到解耦的目的。后来发现Activity提供view能力时冗余代码过多，所以引入DataBinding，虽然代码简化了，不过xml中引入了部分业务逻辑，model中同时参杂数据处理逻辑和view展示逻辑，故而引入viewModel，将xml与model进一步解耦，同时减轻model负担，不过此时并不算是mvvm，本质上在mvp的基础上，引入vm，因此presenter的中转作用还在，所以才演变成了现在的mvpvm。同时强调下，架构无绝对的好坏与绝对的标准，大家应该在项目中根据实际场景选择最合适的架构方式。本文中如有说明，解释不到位的地方，还请指出，互相学习共勉。
 
 最终版本项目地址：https://github.com/listen2code/Test_MVPVM
-
