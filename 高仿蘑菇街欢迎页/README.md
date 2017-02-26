@@ -1,8 +1,8 @@
 ####蘑菇街欢迎页
-![蘑菇街欢迎页.gif](http://upload-images.jianshu.io/upload_images/2157048-ab4556d067a13aa5.gif?imageMogr2/auto-orient/strip)
+![蘑菇街欢迎页.gif](https://github.com/listen2code/article/blob/master/高仿蘑菇街欢迎页/gif/mogu.gif?raw=true)
 
 ####高仿效果
-![高仿版本.gif](http://upload-images.jianshu.io/upload_images/2157048-754aa06585524806.gif?imageMogr2/auto-orient/strip)
+![高仿版本.gif](https://github.com/listen2code/article/blob/master/高仿蘑菇街欢迎页/gif/my_mogu.gif?raw=true)
 
 这里这里...[Demo下载地址](https://github.com/listen2code/Test_Mogu_View)
 #####前言
@@ -13,7 +13,7 @@
 #####效果拆解
 > 首先可以把整体效果拆分为静态，动态2部分。
 
-![整体布局设计.png](http://upload-images.jianshu.io/upload_images/2157048-60aab54a762f4cd9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![整体布局设计.png](https://github.com/listen2code/article/blob/master/高仿蘑菇街欢迎页/screenshot/mogu布局.png?raw=true)
 
 * 静态：1个支持4个页面的ViewPager，每个页面的展示相对固定，不会根据offset进行改变。
     * 第1-4页的顶部文案
@@ -108,7 +108,7 @@ public class MoguViewPager extends RelativeLayout {
 ```
 
 第一步完成，实现代码还是比较简单的，直接看效果：
-![第1版.gif](http://upload-images.jianshu.io/upload_images/2157048-06c86b5b42020663.gif?imageMogr2/auto-orient/strip)
+![第1版.gif](https://github.com/listen2code/article/blob/master/高仿蘑菇街欢迎页/gif/tag1.gif?raw=true)
 
 
 * 根据offset实现矩形背景变化
@@ -295,7 +295,7 @@ protected void onDraw(Canvas canvas) {
 ```
 
 第2步：通过ViewPager的偏移offset，实现了矩形背景在页面间切换时的变化效果，如下：
-![第2版.gif](http://upload-images.jianshu.io/upload_images/2157048-e72ad8c0e31cfb0f.gif?imageMogr2/auto-orient/strip)
+![第2版.gif](https://github.com/listen2code/article/blob/master/高仿蘑菇街欢迎页/gif/tag2.gif?raw=true)
 
 * 根据offset实现第1页底部背景，第2，4页裂变图背景图变化
 
@@ -409,7 +409,7 @@ private void transfor(int position, float positionOffset, int positionOffsetPixe
 ```
 
 效果如下：
-![第3版.gif](http://upload-images.jianshu.io/upload_images/2157048-669e308c4ee7693a.gif?imageMogr2/auto-orient/strip)
+![第3版.gif](https://github.com/listen2code/article/blob/master/高仿蘑菇街欢迎页/gif/tag3.gif?raw=true)
 
 * 4个页面切换时，实现每个页面图片元素的隐藏，显示，变形等效果
 
@@ -903,6 +903,6 @@ protected void onDraw(Canvas canvas) {
     }
 ```
 最终效果：
-![高仿版本.gif](http://upload-images.jianshu.io/upload_images/2157048-754aa06585524806.gif?imageMogr2/auto-orient/strip)
+![高仿版本.gif](https://github.com/listen2code/article/blob/master/高仿蘑菇街欢迎页/gif/my_mogu.gif?raw=true)
 
 目前还有一些细节的效果，以及适配，性能调优还没实现。虽然原理不难，不过要真正完整的实现以上效果，也算呕心沥血吧！难点就在于如何精细化的控制每个view的属性，因为页面中每个图片的位置，大小都是在参照其他view的基础上进行计算后得出的。现在市场上很多APP的欢迎页都有类似比较动态的效果，原理就是ViewPager+Canvas绘制，掌握了本文的demo，其他实现原理应该是一样样的。感兴趣的朋友可以[Github](https://github.com/listen2code/Test_Mogu_View)上下载源码查看， 注释还算清晰，有什么问题页欢迎提出，如果本文稍微对您有点启示的话还请点个“喜欢”，谢谢了
