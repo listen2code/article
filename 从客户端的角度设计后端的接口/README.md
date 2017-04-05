@@ -22,10 +22,10 @@
 响应参数
     
 | 名称 | 类型 | 备注 |
-    | --- | --- | --- |
-    | id | String | 用户id |
-    | name | String | 姓名，例：张三 |
-    | age | String | 年龄，例：20 |
+| --- | --- | --- |
+| id | String | 用户id |
+| name | String | 姓名，例：张三 |
+| age | String | 年龄，例：20 |
     
 json示例
 ```
