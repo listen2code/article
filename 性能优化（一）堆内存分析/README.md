@@ -1,3 +1,7 @@
+
+
+![题图.png](https://raw.githubusercontent.com/listen2code/article/master/性能优化（一）堆内存分析/screenshot/堆内存分析.jpg)
+
 ###前言
 
 >通过Android Studio的Memory Monitor工具，对各种数据类型，如：boolean，int，float，long，SparseArray，HashMap等在内存的占用情况进行分析；对一些特定场景下的代码编写，如：String拼接，OnClickListener等所消耗的内存情况进行分析；分析方式很简单，只是为了确切的验证以往的诸多代码经验，并更好的实践。
