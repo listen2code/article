@@ -42,7 +42,7 @@ Dominating Size：管辖的内存大小，大部分情况和Retained一致
 | obj2 | obj2 | obj2+obj4 | obj2+obj3+obj4 |
 
 ###案例分析
->  如图[heap_nothing.png](https://raw.githubusercontent.com/listen2code/article/master/性能优化（一）堆内存分析/screenshot/heap_nothing.png)，在MainActivity在新建的时候，初始占用内存1776。
+>  如图[heap_nothing.png](https://raw.githubusercontent.com/listen2code/article/master/性能优化（一）堆内存分析/screenshot/heap_nothing.png)，在MainActivity在新建的时候，初始占用内存1776（以下案例分析基于红米note3机型）。
 
 *  case 1：空对象TestModel+未初始化。
 
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
 ![case3_TestModel.png](https://raw.githubusercontent.com/listen2code/article/master/性能优化（一）堆内存分析/screenshot/case3_TestModel.png)
 
-> 内存占用未变化，还是初始值1776，说明局部变量生命周期只存在于方法内部，方法结束后，即可被gc回收。
+> 内存占用未变化，还是初始值1776，说明局部变量生命周期只存在于方法内部，方法结束后，即可被gc回收。除非必须，能使用局部变量的情况，就避免定义成员变量。
 
 * case4：boolean基础类型。
 
@@ -290,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
 
 > 
 * "aaaaa"这个String为何占用26字节？按以上方式分析，至少占用内存30=类信息（8）+count（4）+hashCode（4）+char[]引用（4）+char[]数组（10），为何少了4字节？
-* 直接赋值的方式会将"aaaaa"加入到字符串常量池，不占用堆空间；case11_2的内存占用1806=case11_1+26，说明通过new String方式创建的字符串会在堆内存开辟空间。
+* 直接赋值的方式会将"aaaaa"加入到字符串常量池，不占用堆空间；而case11_2的内存占用为 1806=case11_1+26，说明通过new String方式创建的字符串会在堆内存开辟空间。
 
 * case12：String的拼接。
 
