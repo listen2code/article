@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 ###Shallow Size和Retained Size
->  Shallow Size：该对象本身占有内存大小
-Retained Size：释放该对象后，节省的内存大小
+>  Shallow Size：对象自身占用的内存大小，不包括它引用的对象
+Retained Size：对象自身占用的内存大小，加上它直接或间接引用的对象大小
 Dominating Size：管辖的内存大小，大部分情况和Retained一致
 
 ![shalow_and_retain.png](https://raw.githubusercontent.com/listen2code/article/master/性能优化（一）堆内存分析/screenshot/shalow_and_retain.png)
