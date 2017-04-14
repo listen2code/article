@@ -656,8 +656,10 @@ http://image-demo.img-cn-hangzhou.aliyuncs.com/example.jpg@100h_100w_1e_1c?spm=5
        }
 ```
 
-
 * 总结
 
 > 暂时先这么多吧，水平有限，权当是抛砖引玉，如果有更好的设计，请在文章下方留言告诉我，交流想法，互相学习。谢谢支持～
+
+
+分享一份基于本文编写的接口文档模板，仅供参考[接口模板](https://github.com/listen2code/api_design_template)。
 
