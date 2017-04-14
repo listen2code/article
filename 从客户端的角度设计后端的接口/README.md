@@ -305,8 +305,9 @@ Model model = gson.fromJson(json, Model.class);// age字段解析出来为-1
 }
 ```
     
-**优点：**
-  * 容错性强，规避因脏数据引起的数据解析失败。
+优点：
+  
+  *  容错性强，规避因脏数据引起的数据解析失败。
   * age，money这些字段大部分情况下都是直接展示，此时便可省去拼接 ""，或String.valueOf()等步骤。另外假设此时将age字段定义为int类型，很容易就会直接调用textView.setText(age)，那么这个age就会当成resId去执行，导致资源找不到报错，定义为String可以避免此类错误。
         
 **注意事项：**
@@ -492,15 +493,16 @@ isShowBalance=true
 五.安全性
 
 1. 响应数据中包含用户隐私的字段数据，需要加*号。如：手机号，身份证，用户邮箱，支付账号，邮寄地址等。
-    
-  ```
+
+```
 {
     "phone":"150*****000",
     "idCard":"3500**********0555",  
     "email":"40*****00@qq.com"     
 }
 ```
-        
+
+       
 2. 请求参数中包含用户隐私的字段参数，如：登陆接口的密码字段，需要进行加密传输，避免被代理捕捉请求后获取明文密码。
     
 3. 客户端和服务器通过约定的算法，对传递的参数值进行签名匹配，防止参数在请求过程中被抓取篡改。密钥记得放到so中，放在java层太不安全，so中要进行keystore反向签名校验，避免so被获取后直接调用获取算法。
@@ -542,47 +544,47 @@ isShowBalance=true
         }
         ```
         
-         so层的native-lib.c
-         
-         ```
-         // 字符串转字符
-         char* _JString2CStr(JNIEnv* env, jstring jstr) {
-            char* rtn;
-            jclass clsstring = (*env)->FindClass(env, "java/lang/String");
-            jstring strencode = (*env)->NewStringUTF(env, "GB2312");
-            jmethodID mid = (*env)->GetMethodID(env, clsstring, "getBytes",
-                    "(Ljava/lang/String;)[B");
-            jbyteArray barr = (jbyteArray)(*env)->CallObjectMethod(env, jstr, mid,
-                    strencode); // String .getByte("GB2312");
-            jsize alen = (*env)->GetArrayLength(env, barr);
-            jbyte* ba = (*env)->GetByteArrayElements(env, barr, JNI_FALSE);
-            if (alen > 0) {
-                rtn = (char*) malloc(alen + 1); //"\0"
-                memcpy(rtn, ba, alen);
-                rtn[alen] = 0;
-            }
-            (*env)->ReleaseByteArrayElements(env, barr, ba, 0);
-            return rtn;
-        }
-    
-         char* storeKeyHash = "1234567890";// 该值可以通过java层的getSignature获取
-         
-         JNIEXPORT jstring JNICALL Java_com_listen_test_NativeHelper_getKey(
-                JNIEnv *env, jobject obj, jbyteArray array) {
-            // 反射获取当前keyStore的hash值
-            jclass jClazz = (*env)->FindClass(env, "com/listen/test/NativeHelper");
-            jmethodID jmethodid = (*env)->GetMethodID(env, jClazz, "getSignature",
-                    "()Ljava/lang/String;");
-            jstring appSign = (jstring)(*env)->CallObjectMethod(env, obj, jmethodid);
-        
-            // 判断是否是本程序的签名哈希值
-            char* charAppSign = _JString2CStr(env, appSign); //将jstring转换为cha*
-            if (strcmp(charAppSign, storeKeyHash) != 0) {
-                return (*env)->NewStringUTF(env, "");//keyStore的hash不一致，不是在当前app种调用该so
-            }
-            return (*env)->NewStringUTF(env, "秘钥值");//keyStore的hash一致，返回密钥
-        }
-         ```
+		so层的native-lib.c
+
+		```
+		         // 字符串转字符
+		         char* _JString2CStr(JNIEnv* env, jstring jstr) {
+		            char* rtn;
+		            jclass clsstring = (*env)->FindClass(env, "java/lang/String");
+		            jstring strencode = (*env)->NewStringUTF(env, "GB2312");
+		            jmethodID mid = (*env)->GetMethodID(env, clsstring, "getBytes",
+		                    "(Ljava/lang/String;)[B");
+		            jbyteArray barr = (jbyteArray)(*env)->CallObjectMethod(env, jstr, mid,
+		                    strencode); // String .getByte("GB2312");
+		            jsize alen = (*env)->GetArrayLength(env, barr);
+		            jbyte* ba = (*env)->GetByteArrayElements(env, barr, JNI_FALSE);
+		            if (alen > 0) {
+		                rtn = (char*) malloc(alen + 1); //"\0"
+		                memcpy(rtn, ba, alen);
+		                rtn[alen] = 0;
+		            }
+		            (*env)->ReleaseByteArrayElements(env, barr, ba, 0);
+		            return rtn;
+		        }
+		    
+		         char* storeKeyHash = "1234567890";// 该值可以通过java层的getSignature获取
+		         
+		         JNIEXPORT jstring JNICALL Java_com_listen_test_NativeHelper_getKey(
+		                JNIEnv *env, jobject obj, jbyteArray array) {
+		            // 反射获取当前keyStore的hash值
+		            jclass jClazz = (*env)->FindClass(env, "com/listen/test/NativeHelper");
+		            jmethodID jmethodid = (*env)->GetMethodID(env, jClazz, "getSignature",
+		                    "()Ljava/lang/String;");
+		            jstring appSign = (jstring)(*env)->CallObjectMethod(env, obj, jmethodid);
+		        
+		            // 判断是否是本程序的签名哈希值
+		            char* charAppSign = _JString2CStr(env, appSign); //将jstring转换为cha*
+		            if (strcmp(charAppSign, storeKeyHash) != 0) {
+		                return (*env)->NewStringUTF(env, "");//keyStore的hash不一致，不是在当前app种调用该so
+		            }
+		            return (*env)->NewStringUTF(env, "秘钥值");//keyStore的hash一致，返回密钥
+		        }
+		```
         
 六.兼容性
 > APP1.0在使用接口A，如果此时在开发1.1的时候修改了接口A的逻辑，在1.1发版的时候线上就会出现2个版本的客户端访问同一个接口A，为了保证1.0客户端调用接口A不会出错，就需要通过version字段或path中的"v1/login"，"v2/login"进行区分，不同版本客户端访问同一接口时处理逻辑要各自独立。
@@ -601,7 +603,8 @@ isShowBalance=true
 2. 字段精简
     >定义字段名时，在保证良好可读性的前提下，尽量精简，减少流量的消耗
 
-     ```
+	```
+
     {
       "orderDescription" >> "orderDesc"
       "oldPassword" >> "oldPwd"
@@ -654,7 +657,10 @@ http://image-demo.img-cn-hangzhou.aliyuncs.com/example.jpg@100h_100w_1e_1c?spm=5
                 }
             }]
        }
+
+
 ```
+
 
 * 总结
 
