@@ -313,12 +313,13 @@ Model model = gson.fromJson(json, Model.class);// age字段解析出来为-1
             
   * Boolean类型数据，统一返回1（true）和0（false），客户端做一层容错判断，只有1才为true，其他非1，解析失败的情况均为false，例：
        
-  ```
-  if(!TextUtils.isEmpty(isVip) && "1".equals(isVip)) {
-        return true;
-   }
-        return false;
-```
+    ```
+    if(!TextUtils.isEmpty(isVip) && "1".equals(isVip)) {
+            return true;
+    } else {
+            return false;
+    }
+    ```
        
   * status类型字段从1+开始，和Boolean类型（0否，1是）区分开。"0"的含义有2种，（1）非0即为真，所以0即表示false；（2）"0"是一种未赋值的默认状态。假设此时用0表示状态1，那么就很难判断出到底时数据解析失败，使用默认值0，还是说逻辑走通并赋值为0。例：orderStatus，1:进行中，2:待支付，3:已完成。
             
@@ -612,7 +613,7 @@ isShowBalance=true
 3. md5缓存
 >对于频繁调用，且数据不常变化的接口（config配置接口），可以在返回的数据中添加md5字段（用于校验除md5外其他数据是否变化），在下次请求的时候将这个md5作为参数传给后端，md5没有变化的情况下，不返回data，客户端可以直接使用上次请求缓存在本地的data。
     
-     ![md5.png](https://github.com/listen2code/article/blob/master/从客户端的角度设计后端的接口/screenshot/md5.png?raw=true)
+![md5.png](https://github.com/listen2code/article/blob/master/从客户端的角度设计后端的接口/screenshot/md5.png?raw=true)
     
 4. 无用字段清理
     >每个版本的接口更新后，需要将无用字段进行清理。或者同个接口不同状态下需要返回的字段各不相同的时候，当次请求不需要的字段需要提醒后端不必下发，避免传输无用数据浪费用户流量。
